@@ -80,9 +80,8 @@ Public Function TICKER(symbol As String, Optional return_type As Integer = 1) As
 End Function
 
 ```
-> [!IMPORTANT]
-> Change "Save as Type:" (below the File name) from "Excel Workbook" to "Excel Macro-Enabled Workbook"
-#### 4 - Save File (Ctrl+S)
+### **IMPORTANT**
+#### 4 - Save File (Ctrl+S) -> Change "Save as Type:" (below the File name) from "Excel Workbook" to "Excel Macro-Enabled Workbook"
 #### 5 - Close the file (and the Visual Basic editor)
 #### 6 - Open the file
 #### 7 - Click "Enable Content" on the yellow "Security Warning" ribbon that appears

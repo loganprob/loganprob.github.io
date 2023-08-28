@@ -97,12 +97,29 @@ End Function
           Alternatives
           Cash
       3 = Sub Asset Class, one of:
-          list 
-          list
-          list
+          US Large Cap Core
+          US Large Cap Value
+          US Large Cap Growth
+          US Mid Cap
+          US Small Cap
+          Intl Developed All/Value
+          Intl Developed Growth
+          Emerging Markets Equity
+          US Core/Muni Bond
+          US Long Duration
+          US Short/Flexible Bond
+          US TIPS
+          US High Yield Corp/Muni
+          Intl Developed Bonds
+          Emerging Markets Bond
+          Private Equity
+          Real Estate
+          Hedge Funds & Other
+          Hedged Equity
+          Real Assets
+          Private Credit
+          Cash
       4 = Expense Ratio of ETFs/Mutual Funds (to be formatted as a percentage)
             
-
-
 ###### loganprob.github.io
 ###### 8/26/23

@@ -44,7 +44,6 @@ Sub ParseJSON(strResponse)
         vals.Add Trim(Replace(Split(v(1), ":")(1), Chr(34), ""))
         vals.Add Trim(Replace(Split(v(2), ":")(1), Chr(34), ""))
         vals.Add Trim(Replace(Split(v(3), ":")(1), Chr(34), ""))
-        vals.Add Trim(Replace(Split(v(4), ":")(1), Chr(34), ""))
         datadict.Add k, vals
         i = i + 1
     Wend
@@ -56,7 +55,7 @@ Sub RegisterCustomFunctions()
         Category:="Logan - Custom Functions", _
         ArgumentDescriptions:=Array( _
             "Ticker Symbol", _
-            "Return Type: 1=Name(Default), 2=MajorAssetClass, 3=SubAssetClass, 4=ExpenseRatio, 5=Yield")
+            "Return Type: 1=Name(Default), 2=MajorAssetClass, 3=SubAssetClass, 4=ExpenseRatio")
 End Sub
 Public Function TICKER(symbol As String, Optional return_type As Integer = 1) As Variant
     symbol = UCase(symbol)
@@ -69,8 +68,6 @@ Public Function TICKER(symbol As String, Optional return_type As Integer = 1) As
             TICKER = datadict.Item(symbol)(3)
         ElseIf return_type = 4 Then
             TICKER = datadict.Item(symbol)(4) / 100
-        ElseIf return_type = 5 Then
-            TICKER = datadict.Item(symbol)(5) / 100
         Else
             TICKER = "Unknown Return Type! (press CTRL+A while typing parameters to view descriptions of parameters)"
         End If
@@ -78,7 +75,6 @@ Public Function TICKER(symbol As String, Optional return_type As Integer = 1) As
         TICKER = "could not find ticker... contact Logan"
     End If
 End Function
-
 ```
 ### **IMPORTANT**
 #### 4 - Save File (Ctrl+S) -> Change "Save as Type:" (below the File name) from "Excel Workbook" to "Excel Macro-Enabled Workbook"
@@ -93,7 +89,7 @@ End Function
 #### =TICKER ( )
 ###### Parameters:
 ##### Symbol - _string_ - letters used to identify fund or stock
-##### Return_type - _[1,2,3,4,5]_ - one of the integers to the left, specifies which data point the function returns:
+##### Return_type - _[1,2,3,4]_ - one of the integers to the left, specifies which data point the function returns:
       1 = Fund/Company Name 
       2 = Major Asset Class, one of:
           Equity
@@ -105,7 +101,6 @@ End Function
           list
           list
       4 = Expense Ratio of ETFs/Mutual Funds (to be formatted as a percentage)
-      5 = SEC Yield of ETFs/Mutual Funds (to be formatted as a percentage)
             
 
 

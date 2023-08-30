@@ -86,7 +86,7 @@ End Function
 
 
 ## Formula Usage
-#### =TICKER ( )
+#### =TICKER (Symbol, [Return_type])
 ###### Parameters:
 ##### Symbol - _string_ - letters used to identify fund or stock
 ##### Return_type - _[1,2,3,4]_ - one of the integers to the left, specifies which data point the function returns:

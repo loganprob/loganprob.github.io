@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple API</title>
+    <title>Test API</title>
 </head>
 <body>
+    <script>
+        // request url to add to numbers: a + b
+        // of the form ...?a={}&b={}
+        const urlParams = new URLSearchParams(window.location.search);
+        a = Number(urlParams.get('a'));
+        b = Number(urlParams.get('b'));
 
+        var response = new Object();
+        response.sum = a + b;
+        document.write(JSON.stringify(response));
+    </script>
 </body>
 </html>

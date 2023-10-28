@@ -34,6 +34,8 @@ var spot_data = []
 var recalc_yields = true
 
 
+
+
 function abs_to_relative_x(x) {
   return min(1,max(0,(x-graph_xmin)/(graph_xmax-graph_xmin)))
 }
@@ -103,7 +105,6 @@ function render_legend() {
     text(`Forward time: ${fwd_time}`, legend_origin+10, 15)
   }
 }
-
 
 function draw_gui() { // everything besides plots
   render_leftside()
@@ -211,7 +212,11 @@ function plot_curves() {
   stroke('black')
 }
 
-// key press handler
+function plot_splines() {
+  let muni = 1
+
+}
+
 function keyTyped(event) {
   if (event.code=='KeyQ') {
     leftside_visible = !(leftside_visible)
@@ -260,6 +265,36 @@ function mouseDragged(event) {
   unit_ymin = max(global_ymin, unit_ymin)
   unit_ymax = min(global_ymax, unit_ymax)
 }
+  
+class Bond {
+  constructor(mat_year, mat_month, mat_day, yld, cpn, active) {
+    this.mat = new Date(mat_year, mat_month-1, mat_day)
+    this.yld = yld
+    this.cpn = cpn
+    this.active = active
+    this.bond_color = 'blue'
+  }
+  plot() {
+    if (this.active) {
+      this.x = unit_to_pxl_x(((this.mat-data_date)*0.000000000031688) - fwd_time)
+      this.y = unit_to_pxl_y(this.yld)
+      //console.log(this.x, this.y)
+      noStroke()
+      fill(this.bond_color)
+      circle(this.x, this.y, 5)
+    }
+  }
+}
+
+var my_bond  
+
+function do_download() {
+  navigator.clipboard.writeText('test test');
+  var a = document.createElement('a');
+  a.setAttribute('download', 'cmon_man_i_told_you_to_not_click_the_button')
+  a.setAttribute('href','data:text/plain;charset=utf-8;base64,bG9sIGZhZ2dvdA==')
+  a.click()
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -273,13 +308,88 @@ function setup() {
   focal_point = [windowWidth/2, windowHeight/2]
   unit_xmin = 0.01
   unit_xmax = 30
-  unit_ymin = 0
-  unit_ymax = 0.1
+  unit_ymin = 0.03
+  unit_ymax = 0.07
   info_header_yloc = windowHeight*0.7
+  my_bond = new Bond(2025, 10, 31, 0.07, 0.0525, true) 
+
+
+
+  button = createButton('click me');
+  button.position(0, 0);
+  button.mousePressed(do_download);
 }
 
 function draw() {
   background(color_background);
   plot_curves()
   draw_gui()
+  my_bond.plot()
 }
+
+
+
+
+
+/*
+
+
+
+const trsy = [[0.0833, [0.046787, -0.003902, 0.0, 0.0557]],
+              [0.1667, [0.032423, 0.007804, 0.000325, 0.0557]],
+              [0.25, [-0.176477, 0.015906, 0.002301, 0.0558]],
+              [0.3333,[0.058427, -0.028195, 0.001277, 0.056]],
+              [0.5, [-0.001839, 0.001024, -0.003253, 0.0557]],
+              [1.0, [0.001441, -0.001734, -0.003607, 0.0541]],
+              [2.0, [-0.000937, 0.002589, -0.002752, 0.0502]],
+              [3.0, [9.5e-05, -0.000222, -0.000385, 0.0491]],
+              [5.0, [-8.9e-05, 0.000347, -0.000136, 0.0482]],
+              [7.0, [3.2e-05, -0.00019, 0.000178, 0.0486]],
+              [10.0, [-6e-06, 0.000101, -8.7e-05, 0.0483]],
+              [20.0, [5e-06, -8.1e-05, 0.000119, 0.0515]]]
+
+
+function get_rate(spline, start, end, numpts) {
+  stroke('black')
+  noFill()
+  beginShape()
+  var t = start, dt = (end-start)/numpts, max_time = 30;
+  for (let i=0; i<spline.length; i++) {
+    while ((i==spline.length-1)||(spline[i+1][0]>t)) {
+      let r = 0, l = spline[i][1].length
+      for (let j=0; j<l; j++) {
+        r += spline[i][1][j]*(t-spline[i][0])**(l-j-1)
+      }
+      //console.log(t, r*500)
+      vertex(t*30+100,1500-r*20000)
+      t += dt
+      if(t >= end) {break}
+      //console.log("t: ", t, "|", spline[i][0])
+    }
+    endShape()
+  }
+}
+
+
+
+function show_output() {
+  get_rate(trsy, 0, 30, 100)
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  button = createButton('click me');
+  button.position(0, 0);
+  button.mousePressed(show_output);
+  
+}
+
+function draw() {
+  background(220);
+  get_rate(trsy, 0, 30, 500)
+
+
+}
+
+
+*/

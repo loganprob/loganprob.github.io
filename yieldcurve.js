@@ -288,8 +288,6 @@ class Bond {
 
 var my_bond  
 
-}
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   left_sidebar_bounds = windowWidth*0.15
@@ -315,4 +313,3 @@ function draw() {
   draw_gui()
   my_bond.plot()
 }
-

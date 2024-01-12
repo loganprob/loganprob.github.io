@@ -16,11 +16,12 @@
 
 ### Other:
 
+- Playing around with JavaScript: [Interactive Spot/Forward Curve](https://loganprob.github.io/yieldcurve.html) ([Source](https://github.com/loganprob/loganprob.github.io/blob/main/yieldcurve.js))
 - [Old blog](https://www.loganr.io/blog)
   - may eventually come to live here
   - someday I'll take a yearlong sabbatical to finish that calculator... genuinely a lot of fun to work on
  
-- Playing around with JavaScript: [Interactive Spot/Forward Curve](https://loganprob.github.io/yieldcurve.html)
+
 
 
 _Email loganprob@gmail.com for full resume_

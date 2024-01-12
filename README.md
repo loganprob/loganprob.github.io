@@ -15,7 +15,8 @@
 - [Debt: The First 5000 Years](https://www.amazon.com/Debt-Updated-Expanded-First-Years-dp-1612194192/dp/1612194192/ref=dp_ob_title_bk) - Graeber
 
 ### Other:
-
+- [The Junk Drawer](https://github.com/loganprob/junk_drawer)
+  - Home for miscellaneous ideas & unfinished projects in their unpolished state; preserved for future inspiration/scavenging
 - Playing around with JavaScript: [Interactive Spot/Forward Curve](https://loganprob.github.io/yieldcurve.html) ([Source](https://github.com/loganprob/loganprob.github.io/blob/main/yieldcurve.js))
 - [Old blog](https://www.loganr.io/blog)
   - may eventually come to live here

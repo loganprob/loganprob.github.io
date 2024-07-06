@@ -1,22 +1,8 @@
 {
-    "person": [
-        {
-            "firstName": "Clark",
-            "lastName": "Kent",
-            "job": "Reporter",
-            "roll": 20
-        },
-        {
-            "firstName": "Bruce",
-            "lastName": "Wayne",
-            "job": "Playboy",
-            "roll": 30
-        },
-        {
-            "firstName": "Peter",
-            "lastName": "Parker",
-            "job": "Photographer",
-            "roll": 40
-        }
+    "updated":"2024-07-06",
+    "table": [
+        {"ticker": "BJAN", "delta": 0.000, "vega":0.000, "theta":0.000, "rho":0.000},
+        {"ticker": "BFEB", "delta": 0.000, "vega": 0.000, "theta":0.000, "rho":0.000},
+        {"ticker": "BMAR", "delta": 0.000, "vega": 0.000, "theta":0.000, "rho":0.000}
     ]
- }
+}

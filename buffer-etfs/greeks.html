@@ -1,46 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Include Table Example</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            width: 50%;
-            margin: 0 auto;
-            background-color: #f0f0f0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        h1 {
-            text-align: center;
-        }
-        #table-container {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Load JSON Data Example</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      width: 80%;
+      margin: 0 auto;
+      background-color: #f0f0f0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #subtitle {
+      text-align: center;
+      font-style: italic;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Include Table Example</h1>
-    <div id="table-container">
-        <!-- Table content will be loaded here -->
-    </div>
+  <h1>Buffer ETFs: Estimated Option Greeks</h1>
+  <p id="subtitle">See below table for important disclosures & definitions</p>
+  <div id="as-of"></div>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Delta</th>
+        <th>Vega</th>
+        <th>Theta</th>
+        <th>Rho</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here -->
+    </tbody>
+  </table>
 
-    <script>
-        // Function to load an external HTML file and insert it into the specified element
-        function loadTable() {
-            fetch('table.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('table-container').innerHTML = data;
-                })
-                .catch(error => console.error('Error loading table:', error));
-        }
+  <script>
+    // Function to load JSON data and populate the table
+    function loadJSONData() {
+      fetch('stats.json')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('as-of').innerHTML  = `Last updated: <b>${data.updated}</b>`;
 
-        // Load the table content on page load
-        document.addEventListener('DOMContentLoaded', loadTable);
-    </script>
+          const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+          data.table.forEach(item => {
+            const row = tableBody.insertRow();
+            const cell_ticker = row.insertCell(0);
+            const cell_delta = row.insertCell(1);
+            const cell_vega = row.insertCell(2);
+            const cell_theta = row.insertCell(3);
+            const cell_rho = row.insertCell(4);
+
+            cell_ticker.textContent = item.ticker;
+            cell_delta.textContent = item.delta;
+            cell_vega.textContent = item.vega;
+            cell_theta.textContent = item.theta;
+            cell_rho.textContent = item.rho;
+          });
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+    }
+
+    // Load the JSON data on page load
+    document.addEventListener('DOMContentLoaded', loadJSONData);
+  </script>
 </body>
+
 </html>

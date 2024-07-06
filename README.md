@@ -14,14 +14,3 @@
   - may eventually come to live here
   - someday I'll take a yearlong sabbatical to finish that calculator... genuinely a lot of fun to work on
   
-### Reading:
-
-- [Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems](https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321) - Kleppmann
-- [Debt: The First 5000 Years](https://www.amazon.com/Debt-Updated-Expanded-First-Years-dp-1612194192/dp/1612194192/ref=dp_ob_title_bk) - Graeber
-
-
- 
-
-
-
-_Email loganprob@gmail.com for full resume_

@@ -1,3 +1,4 @@
+import sys
 import json
 import datetime as dt
 
@@ -25,4 +26,6 @@ dummy_fund_data = [
 ]
 
 if __name__=='__main__':
+    # if dt.date.today().weekday() > 4:
+        # sys.exit(1) # non-zero exit status will prevent the .bat script from pushing to github 
     dump_stats(dummy_fund_data)

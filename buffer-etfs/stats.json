@@ -1,8 +1,1 @@
-{
-    "updated":"2024-07-06",
-    "table": [
-        {"ticker": "BJAN", "delta": 0.000, "vega":0.000, "theta":0.000, "rho":0.000},
-        {"ticker": "BFEB", "delta": 0.000, "vega": 0.000, "theta":0.000, "rho":0.000},
-        {"ticker": "BMAR", "delta": 0.000, "vega": 0.000, "theta":0.000, "rho":0.000}
-    ]
-}
+{"updated": "2024-07-07 00:02", "table": [{"ticker": "BJAN", "delta": 1, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BFEB", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BMAR", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BAPR", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BMAY", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BJUN", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BJUL", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BAUG", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BSEP", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BOCT", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BNOV", "delta": 0, "vega": 0, "theta": 0, "rho": 0}, {"ticker": "BDEC", "delta": 0, "vega": 0, "theta": 0, "rho": 0}]}

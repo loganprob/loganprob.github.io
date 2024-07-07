@@ -70,7 +70,7 @@
       fetch('stats.json')
         .then(response => response.json())
         .then(data => {
-          document.getElementById('as-of').innerHTML  = `Last updated: <b>${data.updated}</b>`;
+          document.getElementById('as-of').innerHTML  = `Last updated (UTC): <b>${data.updated}</b>`;
 
           const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
           data.table.forEach(item => {

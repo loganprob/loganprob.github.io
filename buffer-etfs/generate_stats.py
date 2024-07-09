@@ -5,6 +5,7 @@ import requests
 import math
 import xml.etree.ElementTree as ET
 from scipy import optimize
+import re
 
 
 #################### YIELD CURVE RELATED ####################
@@ -57,7 +58,29 @@ def get_treasury_par_rates(as_of=dt.date.today()):
     as_of = max(min(as_of, max(dated_elements.keys())), min(dated_elements.keys()))
     return as_of, [(tags[t], float(r.text)/100) for t,r in [(tag, dated_elements[as_of].find(f'd:BC_{tag}', xmlns)) for tag in tags] if r is not None]
 
-
+def get_flex_report(max_trys=3):
+    report_date = dt.date.today()
+    while max_trys>0:
+        report_date += dt.timedelta(days=min(4-report_date.weekday(), 0))
+        url = f'https://marketdata.theocc.com/flex-reports?reportType=PR&optionType=E&reportDate={report_date.strftime('%Y%m%d')}'
+        response = requests.get(url)
+        if response.status_code!=200 or 'File requested does not exist' in (full_report:=response.content.decode()):
+            report_date -= dt.timedelta(days=1)
+            max_trys -= 1
+            continue
+        # good response
+        flex_quote_pattern = re.compile(r'\s*[24]SPY\s+([CP])\s+(\d{2} \d{2} \d{4})\s+([\d.]+)\s+([\d.]+)')
+        parsed_quotes = {1:{}, -1:{}}
+        for line in full_report.splitlines():
+            if not (flex_quote_match:=flex_quote_pattern.match(line)):
+                continue
+            callput, expir, strike, mark = flex_quote_match.groups()
+            callput, expir, strike, mark = (1 if callput=='C' else -1), dt.datetime.strptime(expir, '%m %d %Y').date(), float(strike), float(mark)
+            if expir not in parsed_quotes[callput]:
+                parsed_quotes[callput][expir] = {}
+            parsed_quotes[callput][expir][strike] = mark 
+        return parsed_quotes
+    sys.exit(1)
 
 
 def dump_stats(table_data:list[dict], path='stats.json'):
@@ -69,19 +92,20 @@ def dump_stats(table_data:list[dict], path='stats.json'):
     return
 
 dummy_fund_data = [
-    {'ticker':'BJAN', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BFEB', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BMAR', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BAPR', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BMAY', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BJUN', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BJUL', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BAUG', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BSEP', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BOCT', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BNOV', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
-    {'ticker':'BDEC', 'delta':0, 'vega':0, 'theta':0, 'rho':0},
+    {'ticker':'BJAN', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BFEB', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BMAR', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BAPR', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BMAY', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BJUN', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BJUL', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BAUG', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BSEP', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BOCT', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BNOV', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
+    {'ticker':'BDEC', 'delta':'-', 'vega':'-', 'theta':'-', 'rho':'-'},
 ]
+
 
 if __name__=='__main__':
     if dt.date.today().weekday() > 4:
@@ -90,5 +114,6 @@ if __name__=='__main__':
     trsy_date, trsy_par_rates = get_treasury_par_rates()
     par_curve_params = fit_yield_curve(trsy_par_rates)
     spot_curve_params = fit_yield_curve(bootstrap_spot_curve(par_curve_params))
+    flex_quotes = get_flex_report()
 
     dump_stats(dummy_fund_data)
